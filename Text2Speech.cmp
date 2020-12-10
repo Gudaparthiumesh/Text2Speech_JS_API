@@ -1,0 +1,52 @@
+<aura:component implements="force:appHostable,flexipage:availableForAllPageTypes,flexipage:availableForRecordHome,force:hasRecordId,forceCommunity:availableForAllPageTypes,force:lightningQuickAction" access="global" >
+    <aura:attribute name="UserInputText" type="string"/>
+    <aura:attribute name="pitchRange" type="decimal"/>
+    <aura:attribute name="rateRange" type="decimal"/>
+    <aura:attribute name="volRange" type="decimal"/>
+    <aura:attribute name="volVal" type="Integer"/>
+    <aura:attribute name="showreqMsg" type="boolean" default="false"/>
+    <aura:attribute name="reqMsg" type="String" default="*Required"/> 
+    <div style="padding: 0.2%; background: rgb(64, 64, 64);border-radius:10px 10px 0px 0px;">
+        <div class="slds-p-around_small slds-text-heading_small slds-text-color_inverse" style="text-align:center">
+            Text2Speech using SpeechSynthesisUtterance interface in Javascript
+        </div>
+    </div>
+    <div class="slds-box" style="background:white;height: 90% !important">
+        <div class="slds-grid slds-gutters">
+            <div class="slds-col slds-form-element slds-size_3-of-12"></div>
+            <div class="slds-col slds-form-element slds-size_6-of-12">
+                <lightning:textarea variant="label-hidden" class="textareaCustom" aura:id="UserInput" name="inputText" value="{!v.UserInputText}" placeholder="Type here..."/>
+                <aura:if isTrue="{!and(or(v.UserInputText == null,v.UserInputText == ''),v.showreqMsg == true)}">
+                    <p class="slds-truncate fieldHeading" style="color:red;">{!v.reqMsg}</p>
+                </aura:if>
+                <br/><br/>
+            </div>
+            <div class="slds-col slds-form-element slds-size_3-of-12">
+                <p class="slds-p-around_xx-small">
+                    <lightning:input label="Enter Pitch (between 0 - 2)" placeholder="Enter Pitch" step="0.1" type="number" value="{!v.pitchRange}" aura:id="pitchRangeInput" min="0" max="2"/>
+                    <aura:if isTrue="{!and(or(v.pitchRange == null,v.pitchRange == ''),v.showreqMsg == true)}">
+                        <p class="slds-truncate fieldHeading" style="color:red;">{!v.reqMsg}</p>
+                    </aura:if>
+                </p>
+                <p class="slds-p-around_xx-small">
+                    <lightning:input label="Enter Rate (between 0 - 10)" placeholder="Enter Rate" step="0.1" type="number" value="{!v.rateRange}" aura:id="rateRangeInput" min="0" max="10"/>
+                    <aura:if isTrue="{!and(or(v.rateRange == null,v.rateRange == ''),v.showreqMsg == true)}">
+                        <p class="slds-truncate fieldHeading" style="color:red;">{!v.reqMsg}</p>
+                    </aura:if>
+                </p>
+                <p class="slds-p-around_xx-small">
+                    <lightning:input label="Enter Volumn (between 0 - 1)" placeholder="Enter Volumn" step="0.1" type="number" value="{!v.volRange}" aura:id="volRangeInput" min="0" max="1"/>
+                    <aura:if isTrue="{!and(or(v.volRange == null,v.volRange == ''),v.showreqMsg == true)}">
+                        <p class="slds-truncate fieldHeading" style="color:red;">{!v.reqMsg}</p>
+                    </aura:if>
+                </p>
+            </div>
+        </div>
+        <div class="slds-align_absolute-center">
+            <a onclick="{!c.playTextSpeech}">
+                <lightning:icon iconName="utility:play" size="medium" title="Play" alternativeText="Play"/>
+            </a>
+        </div>
+        
+    </div>
+</aura:component>
